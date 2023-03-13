@@ -17,9 +17,18 @@
               <a class="nav-link" routerLink = "baskets">Bakets</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink = "admin">Admin</a>
+              <a class="nav-link" routerLink = "register" *ngIf="!authService.isAuthanticated">Sign In</a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item">
+              <a class="nav-link" routerLink = "login" *ngIf="!authService.isAuthanticated">Login</a>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link btn btn-outline-warning" style="margin-left: 3px;" (click) = "signOut()" *ngIf="authService.isAuthanticated">Sign Out</button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link btn btn-outline-success" style="margin-left: 6px;" routerLink = "admin" *ngIf="authService.isAuthanticated">Admin</button>
+            </li>
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Dropdown
               </a>
@@ -32,7 +41,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link disabled">Disabled</a>
-            </li>
+            </li> -->
           </ul>
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

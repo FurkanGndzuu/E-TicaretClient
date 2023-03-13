@@ -11,7 +11,7 @@ export class HttpClientService {
 
   url( requestParameters : Partial<RequestParameters>) : string{
 
-    return `${requestParameters.baseUrl ? requestParameters.baseUrl : this.baseUrl}/${requestParameters.controller}${requestParameters.action ? `${requestParameters.action}` : ""}`;
+    return `${requestParameters.baseUrl ? requestParameters.baseUrl : this.baseUrl}/${requestParameters.controller}${requestParameters.action ? `/${requestParameters.action}` : ""}`;
 
   }
 
@@ -20,7 +20,7 @@ export class HttpClientService {
     if(requestParameters.fullendPoint)
         url = requestParameters.fullendPoint;
     else
-        url = `${this.url(requestParameters)}${id ? `${id}` : ""}`;
+        url = `${this.url(requestParameters)}${id ? `/${id}` : ""}${requestParameters.queryString ? `/?${requestParameters.queryString}` : ""}`;
     return this.httpClient.get<T>(url , {headers :requestParameters.headers});
   }
 
@@ -29,7 +29,7 @@ export class HttpClientService {
     if(requestParameters.fullendPoint)
         url = requestParameters.fullendPoint;
     else
-        {url = `${this.url(requestParameters)}`;}
+        {url = `${this.url(requestParameters)}${requestParameters.queryString ? `/?${requestParameters.queryString}` : ""}`;}
 
         return this.httpClient.post<T>(url, body, { headers: requestParameters.headers  });
 
@@ -42,7 +42,7 @@ export class HttpClientService {
       if(requestParameters.fullendPoint)
           url = requestParameters.fullendPoint;
       else
-          url = `${this.url(requestParameters)}`;
+          url = `${this.url(requestParameters)}${requestParameters.queryString ? `/?${requestParameters.queryString}` : ""}`;
 
           return this.httpClient.put<T>(url, body, { headers: requestParameters.headers  });
 
@@ -53,7 +53,7 @@ export class HttpClientService {
       if(requestParameters.fullendPoint)
           url = requestParameters.fullendPoint;
       else
-          url = `${this.url(requestParameters)}/${id}`;
+          url = `${this.url(requestParameters)}/${id}${requestParameters.queryString ? `/?${requestParameters.queryString}` : ""}`;
 
           return this.httpClient.delete<T>(url , {headers : requestParameters.headers});
     }
@@ -68,6 +68,7 @@ export class RequestParameters{
   controller? : string;
   action? : string;
   headers? : HttpHeaders;
+  queryString? : string;
 
   fullendPoint? : string;
 

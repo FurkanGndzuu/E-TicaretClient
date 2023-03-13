@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>DİKKAT!</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to permanently delete the product?</p>
+
+</div>
+<div mat-dialog-actions>
+  <button class="btn btn-outline-danger" mat-button (click)="close()">No</button>
+  <button class="btn btn-outline-success" mat-button [mat-dialog-close]="data" cdkFocusInitial>Yes</button>
+</div>

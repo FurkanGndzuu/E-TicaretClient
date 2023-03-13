@@ -1,0 +1,33 @@
+<div class="container m-5">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+
+
+
+
+            <div class="mb-3">
+                <label for="usernameOrEmail" class="form-label">Email Address Or User Name</label>
+                <input #txtusernameOrEmail type="email" class="form-control" id="usernameOrEmail" >
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input #txtpassword type="password" class="form-control" id="password" >
+            </div>
+            	
+                
+                
+
+            <button class="btn btn-outline-primary" (click) = "login(txtusernameOrEmail.value , txtpassword.value)"> Login </button>
+
+            <asl-google-signin-button ></asl-google-signin-button>
+
+
+
+
+
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
