@@ -74,4 +74,12 @@ export class ProductService {
     return ımageFiles;
  }
 
+ async changeShowCase(productId : string , imageId : string){
+ const observable = this.httpClient.post({
+    controller : "files",
+    action : "ChooseImageFile"
+  },{productId ,imageId});
+  await firstValueFrom(observable);
+ }
+
 }

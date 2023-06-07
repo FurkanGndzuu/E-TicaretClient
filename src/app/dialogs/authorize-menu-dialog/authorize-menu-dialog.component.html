@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Complete</h1>
+<div mat-dialog-content>
+
+    <mat-selection-list #rolesComplete>
+        <mat-list-option *ngFor="let role of roles" [selected]="role.selected">
+          {{role.name}}
+        </mat-list-option>
+      </mat-selection-list>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+  <button mat-button cdkFocusInitial [mat-dialog-close] (click)="assignRole(rolesComplete)">Complete</button>
+</div>

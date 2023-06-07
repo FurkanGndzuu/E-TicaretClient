@@ -1,1 +1,41 @@
-<p>baskets works!</p>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Your Basket</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product Image</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th>Delete Product</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of basketItems let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td><img style="width: 40px; height: 40px;border-radius: 5px;" src="{{baseUrlImage}}/{{item.path}}" *ngIf="item.path">
+                  <img style="width: 40px; height: 40px;" src="../../../../assets/defaultProductImage.png" *ngIf="!item.path">
+                </td>
+               
+                <td>{{item.name}}</td>
+                <td>
+                  <input type="number" min="1"  [value]="item.quantity" style="width:60px;" data-id="{{item.basketItemId}}" (change)="changeQuantity($event)" />
+                </td>
+                <td>{{item.price | currency}}</td>
+                <button #button style="margin:5px;" class="btn btn-outline-danger" (click)="removeBasketItem(item.basketItemId , button )">Delete</button>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-success" (click)="createOrder()">Contiune</button>
+    </div>
+  </div>
+
+ 

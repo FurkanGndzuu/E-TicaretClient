@@ -10,6 +10,7 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../ui/cu
 import { MessageType } from '../admin/alertify.service';
 import { TokenResponse } from 'src/app/contracts/Token/tokenResponse';
 import { SocialUser } from 'angularx-social-login';
+import { getAllUser } from 'src/app/contracts/users/getAllUser';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class UserService {
   
   async loginUser(usernameOrEmail : string , password : string ,  callBackFunction? : () => void){
   const observable : Observable<any | TokenResponse> =  this.httpClientService.post<any | TokenResponse>({
-      controller : "users",
+      controller : "auths",
       action : "login"
     } , {usernameOrEmail , password});
    
@@ -36,6 +37,7 @@ export class UserService {
     const tokenResponse : TokenResponse =  await firstValueFrom(observable) as TokenResponse;
     if(tokenResponse){
       localStorage.setItem("accessToken"  , tokenResponse.token.accesToken);
+      localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
       console.log(tokenResponse.token.accesToken);
         this.toastrService.message("Login Successfully" , "Login" , {
           position : ToastrPosition.TopRight,
@@ -55,7 +57,7 @@ export class UserService {
 
 async  googleLogin(user : SocialUser , callBackFunction? : () => void){
   const observable : Observable<SocialUser | TokenResponse> = this.httpClientService.post<SocialUser | TokenResponse>({
-      controller : "users",
+      controller : "auths",
       action : "google-login"
     },user);
 
@@ -63,12 +65,80 @@ async  googleLogin(user : SocialUser , callBackFunction? : () => void){
 
     if(tokenResponse){
       localStorage.setItem("accessToken", tokenResponse.token.accesToken);
+      localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
       this.toastrService.message("Login Successfully" , "Login" , {
         position : ToastrPosition.TopRight,
         messageType : ToastrMessageType.Success
       });
     }
     callBackFunction();
+  }
+
+  async facebookLogin(user : SocialUser , callBackFunction? : () => void) {
+    const observable : Observable<SocialUser | TokenResponse> = this.httpClientService.post<SocialUser | TokenResponse>({
+      controller : "auths",
+      action : "facebook-login"
+    },user);
+
+    const tokenResponse : TokenResponse = await firstValueFrom(observable) as TokenResponse;
+
+    if(tokenResponse){
+      localStorage.setItem("accessToken" , tokenResponse.token.accesToken);
+      localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
+      this.toastrService.message("Login Successfully" , "Login" , {
+        messageType : ToastrMessageType.Success,
+        position : ToastrPosition.TopRight
+      });
+    }
+
+    callBackFunction();
+  }
+  async refreshTokenLogin(refreshToken : string , callBackFunction? : ()=> void){
+    const observable : Observable<any | TokenResponse> = this.httpClientService.post<any | TokenResponse>({
+      controller : "auths",
+      action : "refresh-token-login"
+    },{
+      refreshToken
+    });
+
+    const tokenResponse : TokenResponse = await firstValueFrom(observable) as TokenResponse;
+
+    if(tokenResponse){
+      localStorage.setItem("accessToken", tokenResponse.token.accesToken);
+      localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
+    }
+
+   callBackFunction();
+
+  }
+
+
+  async getAllUsers(page : number = 0  , size : number = 5){
+   const observable : Observable<{totalUserCount : number , users : getAllUser[]}> = await this.httpClientService.get<{totalUserCount : number , users : getAllUser[] }>({
+      controller : "users",
+      queryString : `page=${page}&size${size}`
+    });
+    const promiseData = await firstValueFrom(observable);
+    return promiseData;
+  }
+
+  async assignRolesToUser(userId :string , roles : string[]){
+   const observable =await this.httpClientService.post({
+      controller : "users",
+      action : "assign-roles-to-user"
+    },{ Id : userId , Roles : roles})
+    await firstValueFrom(observable);
+  }
+
+  async getRolesToUser(userId :string){  
+    
+   const observable : Observable<string[]> =await this.httpClientService.get<string[]>({
+      controller : "users",
+      action : "get-roles-to-user",
+      queryString : `UserId=${userId}`
+    });
+   const promiseData  = await firstValueFrom(observable);
+   return promiseData;
   }
 
   

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { baseComponent } from 'src/app/base/baseComponent';
+import { ListOrderComponent } from './list-order/list-order.component';
 
 @Component({
   selector: 'app-orders',

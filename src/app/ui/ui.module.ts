@@ -11,6 +11,7 @@ import { ComponentsModule } from './components/components.module';
     CommonModule,
     RouterModule,
     ComponentsModule
-  ]
+  ],
+  exports : [ComponentsModule]
 })
 export class UiModule { }

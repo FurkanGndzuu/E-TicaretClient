@@ -20,6 +20,7 @@ import { UserRegisterModule } from './user-register/user-register.module';
     BasketsModule,
     RouterModule,
     UserRegisterModule
-  ]
+  ],
+  exports : [BasketsModule]
 })
 export class ComponentsModule { }

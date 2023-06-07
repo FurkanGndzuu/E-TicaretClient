@@ -4,6 +4,8 @@ import { CustomersModule } from './customers/customers.module';
 import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { RolesModule } from './roles/roles.module';
+import { UsersModule } from './users/users.module';
 
 
 
@@ -15,7 +17,9 @@ import { DashboardModule } from './dashboard/dashboard.module';
     CustomersModule,
     ProductsModule,
     OrdersModule,
-    DashboardModule
+    DashboardModule,
+    RolesModule,
+    UsersModule
   ],
   exports : [
     ProductsModule

@@ -1,6 +1,7 @@
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FacebookLoginProvider } from 'angularx-social-login';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { baseComponent, SpinnerType } from 'src/app/base/baseComponent';
 import { AuthService } from 'src/app/services/common/auth.service';
@@ -19,10 +20,22 @@ constructor(private userService : UserService , spinner : NgxSpinnerService, pri
   this.socialService.authState.subscribe((user : SocialUser) => {
     console.log(user);
 
-    this.userService.googleLogin(user , () => {
-      this.authService.identityCheck();
-    });
-    
+    switch(user.provider){
+      case "GOOGLE" : {
+        this.userService.googleLogin(user , () => {
+          this.authService.identityCheck();
+        });
+        break;
+      }
+      case "FACEBOOK" : {
+        this.userService.facebookLogin(user , () => {
+          this.authService.identityCheck();
+        });
+        break;
+      }
+    }
+
+   
   });
 
 }
@@ -42,6 +55,10 @@ this.showSpinner(SpinnerType.BallAtom);
     this.hideSpinner(SpinnerType.BallAtom)
   });
 
+}
+
+facebookLogin(){
+  this.socialService.signIn(FacebookLoginProvider.PROVIDER_ID);
 }
 
 

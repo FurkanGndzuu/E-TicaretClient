@@ -14,9 +14,6 @@
               <a class="nav-link" routerLink = "products">Products</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink = "baskets">Bakets</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" routerLink = "register" *ngIf="!authService.isAuthanticated">Sign In</a>
             </li>
             <li class="nav-item">
@@ -43,10 +40,10 @@
               <a class="nav-link disabled">Disabled</a>
             </li> -->
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+          
+            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+            <button style="padding: 5px 35px 5px 35px;" (click)="loadComponent()" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-success"> <img src="../assets/basketIcon.png"></button>
+        
         </div>
       </div>
     </nav>
@@ -55,3 +52,16 @@
   </div>
 
   <ngx-spinner size="default" name="s1" type="ball-atom"></ngx-spinner>
+
+  <!-- <div class="modal modal-dialog modal-xl fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+  <app-baskets></app-baskets>
+  </div>
+</div> -->
+
+  <div class="modal  modal-xl fade"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+  <ng-template appDynamicLoadComponent><app-baskets></app-baskets></ng-template>
+  </div>
+</div>
+

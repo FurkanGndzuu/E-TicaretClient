@@ -1,0 +1,10 @@
+<mat-list>
+    <ng-container *ngFor="let menu of menus">
+        <mat-list-item>{{menu.name}}</mat-list-item>
+        <mat-list style="margin-left:30px;">
+            <div *ngFor="let action of menu.actions">
+                <mat-list-item ><button style="margin-right: 15px;" mat-raised-button color="primary" (click)="getRolesforAuthorize(action.code , menu.name)">Authorize</button>{{ action.definition }}</mat-list-item>
+            </div>
+        </mat-list>
+    </ng-container>
+</mat-list>

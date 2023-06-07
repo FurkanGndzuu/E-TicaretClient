@@ -7,21 +7,34 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ProductImageDialogComponent } from '../product-image-dialog/product-image-dialog.component';
 import {MatCardModule} from '@angular/material/card';
+import { ShoppingCompleteDialogComponent } from '../shopping-complete-dialog/shopping-complete-dialog.component';
+import { OrderDetailDialogsComponent } from '../order-detail-dialogs/order-detail-dialogs.component';
+import { MatTableModule } from '@angular/material/table';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { AuthorizeMenuDialogComponent } from '../authorize-menu-dialog/authorize-menu-dialog.component';
+import {MatListModule} from '@angular/material/list';
+import { AuthorizeUserDialogComponent } from '../authorize-user-dialog/authorize-user-dialog.component';
 
 
 
 
 @NgModule({
   declarations: [
- 
+ ShoppingCompleteDialogComponent,
     DeleteDialogComponent,
-    ProductImageDialogComponent
+    ProductImageDialogComponent,
+    OrderDetailDialogsComponent,
+    AuthorizeMenuDialogComponent,
+    AuthorizeUserDialogComponent
   ],
   imports: [
     CommonModule,
     FileUploadModule,
     MatDialogModule,
-    MatButtonModule ,MatCardModule
+    MatButtonModule ,MatCardModule,
+    MatTableModule,
+    MatToolbarModule,
+    MatListModule
 
   ]
 })

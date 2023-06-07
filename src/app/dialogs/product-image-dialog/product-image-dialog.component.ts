@@ -45,6 +45,10 @@ export class ProductImageDialogComponent extends baseDialog<ProductImageDialogCo
   
   }
 
+  showCase(imageId : string){
+    this.productService.changeShowCase(this.data as string , imageId);
+  }
+
 }
 
 
